@@ -1,0 +1,8 @@
+D:\Programmation\Formation\App1\bin\Debug\App1.exe.config
+D:\Programmation\Formation\App1\bin\Debug\App1.exe
+D:\Programmation\Formation\App1\bin\Debug\App1.pdb
+D:\Programmation\Formation\App1\obj\Debug\App1.csproj.AssemblyReference.cache
+D:\Programmation\Formation\App1\obj\Debug\App1.csproj.SuggestedBindingRedirects.cache
+D:\Programmation\Formation\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
+D:\Programmation\Formation\App1\obj\Debug\App1.exe
+D:\Programmation\Formation\App1\obj\Debug\App1.pdb
