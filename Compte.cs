@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,23 +37,9 @@ namespace App1
 
         public void afficher()
         {
-            Console.WriteLine($"\n\n\nAffichage du compte {_ID}");
+            Console.WriteLine($"Affichage du compte {_ID}");
             Console.WriteLine($"Solde actuel = {_solde} cacahuète(s)\n");
-            Console.WriteLine("Historique des transactions");
-
-            if (!_histoTransac.Any())
-            {
-                Console.WriteLine("Aucune transaction dans l'historique");
-
-            }
-            else
-            {
-                foreach(double montant in _histoTransac)
-                {
-                    Console.WriteLine(montant);
-
-                }
-            }
+ 
         }
 
         protected bool transactionOK()
@@ -62,6 +49,8 @@ namespace App1
 
         public bool deposerArgent(double argentADeposer)
         {
+            Console.WriteLine("On est dans deposer argent");
+
             int countHistoTransac = _histoTransac.Count;
 
             if (countHistoTransac > 9) //s'il y a plus de 10 entrées dans historique transaction
@@ -78,12 +67,33 @@ namespace App1
 
             }
 
+            else
+            {
+                double totalArgent = 0;
+                foreach (double cht in _histoTransac)
+                {
+                    totalArgent += cht;
+                }
+                totalArgent += argentADeposer;
+                if (totalArgent > 1000)
+                { return false; }
+
+                Console.WriteLine($"total argent = {totalArgent}");
+
+
+            }
+
+
+
             _solde += argentADeposer;
             _histoTransac.Add(argentADeposer);
             return true;
         }
         public bool retirerArgent(double argentARetirer)
         {
+            Console.WriteLine("On est dans retirer argent");
+
+
             int countHistoTransac = _histoTransac.Count;
 
 
@@ -95,13 +105,29 @@ namespace App1
                     totalArgent += _histoTransac[i];
                 }
 
-                totalArgent-=argentARetirer;
+                totalArgent+=argentARetirer;
                 if (totalArgent > 1000)
                 { return false; }
 
             }
 
-            if (_solde > argentARetirer)
+            else
+            {
+                double totalArgent = 0;
+                foreach (double cht in _histoTransac)
+                {
+                    totalArgent += cht;
+                }
+                totalArgent += argentARetirer;
+                if (totalArgent > 1000)
+                { return false; }
+
+                Console.WriteLine($"total argent = {totalArgent}");
+
+
+            }
+
+            if (_solde < argentARetirer)
             {
                 return false;
             }
@@ -116,6 +142,11 @@ namespace App1
 
         public bool Virement(double argentAVirer)
         {
+            Console.WriteLine("On est dans virement");
+            Console.WriteLine($"Argent à virer = {argentAVirer}");
+
+
+
             int countHistoTransac = _histoTransac.Count;
 
 
@@ -127,13 +158,31 @@ namespace App1
                     totalArgent += _histoTransac[i];
                 }
 
-                totalArgent -= argentAVirer;
+                totalArgent += argentAVirer;
                 if (totalArgent > 1000)
                 { return false; }
 
+                Console.WriteLine($"total argent = {totalArgent}");
+
             }
 
-            if (_solde > argentAVirer)
+            else
+            {
+                double totalArgent = 0;
+                foreach (double cht in _histoTransac)
+                {
+                    totalArgent += cht;
+                }
+                totalArgent += argentAVirer;
+                if (totalArgent > 1000)
+                { return false; }
+
+                Console.WriteLine($"total argent = {totalArgent}");
+
+
+            }
+
+            if (_solde < argentAVirer)
             {
                 return false;
             }
@@ -145,6 +194,8 @@ namespace App1
 
         public void ajout_argent(double argent)
         {
+            Console.WriteLine("On est dans ajouter argent apres virement");
+
             _solde += argent;
         
         }

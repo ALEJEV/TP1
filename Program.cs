@@ -12,6 +12,14 @@ namespace App1
         static void Main(string[] args)
         {
 
+            //si l'output existe, on le supprime
+            if (File.Exists("Status.csv"))
+            {
+                File.Delete("Status.csv");
+
+            }
+
+
             //Partie comptes 
             List<Compte> Banque = new List<Compte>();
 
@@ -113,7 +121,7 @@ namespace App1
 
             //Partie transactions : 
 
-            using (StreamReader file = new StreamReader("Comptes.csv"))
+            using (StreamReader file = new StreamReader("Transactions.csv"))
             {
                 string line;
 
@@ -128,7 +136,7 @@ namespace App1
                     if (int.TryParse(subs[0], out int d)) //si on arrive à convertir le premier élément en int...
 
                     {
-                        if (d <= 0 || Compte.CompteList.Contains(d)) //Si d est négatif ou égal à 0 ou
+                        if (d <= 0 || Compte.TransactionList.Contains(d)) //Si d est négatif ou égal à 0 ou
                         {                                            //Si l'ID existe déjà
                             continue;                                  //On ne fait rien
 
@@ -151,10 +159,10 @@ namespace App1
 
                     // A partir de là, on implique les objets
 
-                    bool statutTransaction;
+                    bool statutTransaction = false;
                     int expediteur = int.Parse(subs[2]);
                     int destinataire = int.Parse(subs[3]);
-                    double argent = double.Parse(subs[2]);
+                    double argent = double.Parse(subs[1]);
 
 
                     // partie dépot argent
@@ -226,19 +234,37 @@ namespace App1
 
                         }
 
-
+                        
 
                     }
 
+
+                    if (statutTransaction)
+                    {
+                        File.AppendAllText("Status.csv", subs[0] + ";" + "OK"+ "\n");
+
+                    }
+
+                    else
+                    {
+                        File.AppendAllText("Status.csv", subs[0] + ";" + "KO" + "\n");
+
+                    }
 
                 }
 
 
 
-                    file.Close();
+                file.Close();
             }
 
+                //Console.ReadKey();
 
+                foreach (Compte cc in Banque)
+            {
+                cc.afficher();
+            }
+            Console.ReadKey();
 
             }
 
