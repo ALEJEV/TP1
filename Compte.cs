@@ -24,7 +24,7 @@ namespace App1
 
         public void afficher()
         {
-            Console.WriteLine($"Affichage du compte {_ID}");
+            Console.WriteLine($"\n\n\nAffichage du compte {_ID}");
             Console.WriteLine($"Solde actuel = {_solde} cacahuète(s)\n");
             Console.WriteLine("Historique des transactions");
 

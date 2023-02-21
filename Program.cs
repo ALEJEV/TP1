@@ -24,12 +24,18 @@ namespace App1
 
 
 
-
                     string[] subs = line.Split(';'); //Séparation des éléments du .CSV
+
+
+                    foreach (string s in subs)
+                    {
+                        Console.WriteLine($"{s}");
+                    }
+                    Console.WriteLine("--------");
 
                     if (subs.Count() < 1 || subs.Count() > 2) //Si le nb d'elements est deff de 1 et 2, on ne fait rien
                     {
-                        continue;
+                        continue;   
                     }
 
                     if (int.TryParse(subs[0], out int d)) //si on arrive à convertir le premier élément en int...
@@ -45,7 +51,7 @@ namespace App1
 
                     // Si le count == 1 alors on crée un nouveau compte
 
-                    if (subs.Count() == 1)
+                    if (subs.Count() == 1 && d != 0)
                     {
                         Banque.Add(new Compte(d));
                         continue;
@@ -61,9 +67,17 @@ namespace App1
                         if (double.TryParse(subs[1], out double e))
                         {
                             Banque.Add(new Compte(d, e));
-                           // Console.WriteLine("on passe par count == 2");
+                            // Console.WriteLine("on passe par count == 2");
+                            
 
                         }
+                        else if (subs[1] == "" && subs[0] != "")
+                        { 
+                        Banque.Add(new Compte(d)); //Dans le cas où on a un nombre suivi d'un point virgule seul
+                        }
+
+
+
                         continue;
 
                     }
@@ -81,16 +95,17 @@ namespace App1
             }
 
 
+            //Affichage des comptes : 
             foreach (Compte cp in Banque) 
             {
                 cp.afficher();
 
             }
 
-
+            Console.ReadKey();
         }
 
-
+        
 
 
     }
