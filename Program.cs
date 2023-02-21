@@ -22,9 +22,13 @@ namespace App1
                 while ((line = file.ReadLine()) != null)
                 {
 
-
+                    line = line.Replace(".", ",");
+                    
 
                     string[] subs = line.Split(';'); //Séparation des éléments du .CSV
+
+                    // On remplace les points par des virgules
+
 
 
                     foreach (string s in subs)
